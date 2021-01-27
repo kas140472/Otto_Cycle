@@ -33,6 +33,13 @@
     </div>
 
     <div id="commentboxright">
+        <p id="p9" style="line-height:0.7"></p>
+        <p id="p10" style="line-height:0.7"></p>
+        <p id="p11" style="line-height:0.7"></p>
+        <p id="p12" style="line-height:0.7"></p>
+    </div>
+
+    <div id="commentboxmiddle">
         <p id="p5" style="line-height:0.2"></p>
         <p id="p6" style="line-height:0.2"></p>
         <p id="p7" style="line-height:0.4"></p>
@@ -58,13 +65,13 @@
         </div>
 
         <div class="variable">
-            <div class="varname"><p title="Link Length" style="font-size:95%;">v<sub>1</sub> (m<sup>3</sup>)</p>
+            <div class="varname"><p title="Link Length" style="font-size:95%;">v<sub>1</sub> (m<sup>3</sup>/kg)</p>
                 <input id="l3spinner"/></div>
             <div id="l3slider"></div>
         </div>
 
         <div class="variable">
-            <div class="varname"><p title="Link Length" style="font-size:95%;">v<sub>3</sub> (m<sup>3</sup>)</p>
+            <div class="varname"><p title="Link Length" style="font-size:95%;">v<sub>3</sub> (m<sup>3</sup>/kg)</p>
                 <input id="l4spinner"/></div>
             <div id="l4slider"></div>
         </div>
@@ -84,24 +91,38 @@
     <img id="rotationbutton" onclick="location.reload();" src="sins/bluecwdull.png" />
     <div style="position:relative; left: 15px;top:-60px;">
 
-        <span class="tooltip" style="border-bottom:0px dotted ; color:black;top: 5px; text-align:justify;left: 10px">Symbols
+        <span class="tooltip" style="border:3px solid darkred ; color:black;top: 5px; text-align:justify;left: 10px">Symbols
 			<span class="tooltiptext" style="left: 0px;width: 480px">
 			Process 1-2 = Isentropic Compression<br>
             Process 2-3 = Constant Volume Heat Addition (or Constant Volume Combustion)<br>
             Process 3-4 = Isentropic Expansion<br>
             Process 4-1 = Constant Volume Heat Rejection<br>
-                P = Pressure<br>
-                v = Volume<br>
-                γ = Heat Capacity Ratio (or Adiabatic Index)
+                P = Pressure (kPa)<br>
+                v = Volume (m<sup>3</sup>/kg)<br>
+                T = Temperature (K)<br>
+                γ = Heat Capacity Ratio (or Adiabatic Index)<br>
+                r<sub>k</sub> = Compression ratio<br>
+                Efficiency (╖) = Efficiency of diesel cycle<br>
 			</span>
 			</span>
-
-        <span class="tooltip" style="border-bottom:0px dotted ; color:black;top: 5px; text-align:justify;left: 90px">Formulae
-			<span class="tooltiptext" style="left: -60px; width: 180px">
+<!--        Q<sub>in</sub> = Heat supplied<br>-->
+<!--        Q<sub>out</sub> = Heat rejected<br>-->
+<!--        W<sub>net</sub> = Net work output<br>-->
+<!--        R (Gas constant of air) = 0.287 kJ/kg.K<br>-->
+<!--        C<sub>p</sub> (Specific heat of air at constant pressure) = 1.005 kJ/kg.K<br>-->
+<!--        C<sub>v</sub> (Specific heat of air at constant volume) = 0.718 kJ/kg.K<br>-->
+<!--        Q<sub>in</sub> = C<sub>v</sub>(T<sub>3</sub>-T<sub>2</sub>)<br>-->
+<!--        Q<sub>out</sub> = C<sub>v</sub>(T<sub>4</sub>-T<sub>1</sub>)<br>-->
+<!--        W<sub>net</sub> = ((P<sub>1</sub>v<sub>1</sub>)/(γ-1))*((P<sub>3</sub>/P<sub>2</sub>)-1)*(r<sub>k</sub><sup>γ-1</sup>-1)<br>-->
+        <span class="tooltip" style="border:3px solid darkred ; color:black;top: 5px; text-align:justify;left: 90px">Formulae
+			<span class="tooltiptext" style="left: -60px; width: 280px">
             Process 1-2 -> Pv<sup>γ</sup> = constant<br>
             Process 2-3 -> v = constant<br>
             Process 3-4 -> Pv<sup>γ</sup> = constant<br>
             Process 4-1 -> v = constant<br>
+                r<sub>k</sub> = v1/v2<br>
+                Efficiency = 1-1/(r<sub>k</sub>)<sup>γ-1</sup>
+
 			</span>
 			</span>
     </div>
@@ -116,7 +137,9 @@
 
     let v1 = 15;
     let v3 = 5;
-    //let R = 8.314;
+    let R = 0.287;
+    let Cp = 1.005;
+    let Cv = 0.718;
     let P1 = 4;
     let P3 = 50;
     let gamma = 1.5;
@@ -131,6 +154,17 @@
         v4 = v1;
         P2 = P1*Math.pow(v1/v2, gamma);
         P4 = P3*Math.pow(v3/v1, gamma);
+        T1 = (P1*v1)/R;
+        T2 = (P2*v2)/R;
+        T3 = (P3*v3)/R;
+        T4 = (P4*v4)/R;
+        Qin = Cv*(T3-T2);
+        Qout = Cv*(T4-T1);
+        rk = v1/v3; //compression ratio
+        rp = P3/P2;
+        ef = 1-(1/Math.pow(rk, gamma-1));
+        Wnet = ((P1*v1)/(gamma-1))*(rp-1)*(Math.pow(rk, gamma-1)-1);
+
 
         //ab 1st
         for(i=v3;i<=v1;i=i+0.01) {
@@ -190,7 +224,7 @@
         })
 
 
-        graphline("simscreen1", data, "Volume(m³)", "Pressure(kPa)");
+        graphline("simscreen1", data, "Volume(m³/kg)", "Pressure(kPa)");
 
     }
 
@@ -203,11 +237,14 @@
         document.getElementById("p2").innerHTML = "P<sub>2</sub> = " + P2.toFixed(2) + " kPa";
         document.getElementById("p3").innerHTML = "P<sub>3</sub> = " + $('#l2spinner').spinner("value") + " kPa";
         document.getElementById("p4").innerHTML = "P<sub>4</sub> = " + P4.toFixed(2) + " kPa";
-        document.getElementById("p5").innerHTML = "v<sub>1</sub> = " + $('#l3spinner').spinner("value") + " m<sup>3</sup>";
-        document.getElementById("p6").innerHTML = "v<sub>2</sub> = " + v2.toFixed(2) + " m<sup>3</sup>";
-        document.getElementById("p7").innerHTML = "v<sub>3</sub> = " + $('#l4spinner').spinner("value") + " m<sup>3</sup>";
-        document.getElementById("p8").innerHTML = "v<sub>4</sub> = " + v4 + " m<sup>3</sup>";
-        //document.getElementById("p9").innerHTML = "v<sub>3</sub> = " + $('#l4spinner').spinner("value") + " m<sup>3</sup>/mol";
+        document.getElementById("p5").innerHTML = "v<sub>1</sub> = " + $('#l3spinner').spinner("value") + " m<sup>3</sup>/kg";
+        document.getElementById("p6").innerHTML = "v<sub>2</sub> = " + v2.toFixed(2) + " m<sup>3</sup>/kg";
+        document.getElementById("p7").innerHTML = "v<sub>3</sub> = " + $('#l4spinner').spinner("value") + " m<sup>3</sup>/kg";
+        document.getElementById("p8").innerHTML = "v<sub>4</sub> = " + v4 + " m<sup>3</sup>/kg";
+        document.getElementById("p9").innerHTML = "r<sub>k</sub> = " + rk.toFixed(2);
+        //document.getElementById("p10").innerHTML = "r<sub>c</sub> = " + rc.toFixed(1) + " kJ/kg";
+        //document.getElementById("p11").innerHTML = "W<sub>net</sub> = " + Wnet.toFixed(1) + " kJ/kg";
+        document.getElementById("p10").innerHTML = "Efficiency = " + ef.toFixed(2);
     }
     function varinit()
     {
@@ -326,6 +363,7 @@
         P3 = $('#l2spinner').spinner('value');
         v1 = $('#l3spinner').spinner('value');
         v3 = $('#l4spinner').spinner('value');
+        gamma = $('#l5spinner').spinner('value');
         varupdate();
     }
 
