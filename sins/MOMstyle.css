@@ -129,16 +129,16 @@ canvas#simscreen1
 	/*border: 1px solid black;*/
 }
 
-/*canvas#simscreen*/
-/*{*/
-/*	position:absolute;*/
-/*	left:45px;*/
-/*	top:100px;*/
-/*	height: 380px;*/
-/*	width: 380px;*/
-/*	fill: #1c87c9;*/
-/*	!*border: 0px solid black;*!*/
-/*}*/
+canvas#simscreen
+{
+	position:absolute;
+	left:35px;
+	top:100px;
+	height: 350px;
+	width: 260px;
+	fill: #1c87c9;
+	/*border: 2px solid black;*/
+}
 div#mydiv{
 	position:absolute;
 	left:55px;
@@ -257,16 +257,25 @@ input#l4spinner{
 #playpausebutton
 {
 	position: inherit;
-	left: 45px;
-	top: 30px;
+	left: 50px;
+	top: 80px;
 
 }
 
 #rotationbutton
 {
 	position: relative;
-	left: 80px;
-	top: 50px;
+	left: 120px;
+	top: 80px;
+
+}
+
+
+#input
+{
+	position: relative;
+	left: 50px;
+	top: 100px;
 
 }
 
