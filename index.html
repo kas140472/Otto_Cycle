@@ -170,15 +170,6 @@
                         ctx.fillStyle = crankCaseColor;
                         ctx.lineWidth = 4;
 
-                        // cylinder walls
-
-                        // ctx.beginPath();
-                        // ctx.moveTo(left_wall_x,left_wall_y_start+60);
-                        // ctx.lineTo(left_wall_x,left_wall_y_end);
-                        // ctx.lineTo(right_wall_x,right_wall_y_end);
-                        // ctx.lineTo(right_wall_x,right_wall_y_start+60);
-                        // ctx.stroke();
-
                         ctx.beginPath();
                         ctx.moveTo(left_wall_x,left_wall_y_start+10);
                         ctx.lineTo(left_wall_x+200,left_wall_y_start+10);
@@ -199,47 +190,6 @@
                         // ctx.lineTo(right_wall_x,right_wall_y_start);
                         // ctx.lineTo(right_wall_x,right_wall_y_start);
                         ctx.stroke();
-
-                        // ctx.beginPath();
-                        // ctx.moveTo(left_wall_x,left_wall_y_start+260);
-                        // ctx.lineTo(left_wall_x+200,left_wall_y_start+260);
-                        // // ctx.lineTo(right_wall_x,right_wall_y_start);
-                        // // ctx.lineTo(right_wall_x,right_wall_y_start);
-                        // ctx.stroke();
-
-
-                        // source & sink walls
-
-                        // ctx.beginPath();
-                        // ctx.strokeStyle = crankCaseColor;
-                        // ctx.fillStyle = crankCaseColor;
-                        // ctx.lineWidth = 4;
-                        // ctx.moveTo(left_wall_x,left_wall_y_end);
-                        // ctx.lineTo(left_wall_x,left_wall_y_end+50);
-                        // ctx.lineTo(right_wall_x,left_wall_y_end+50);
-                        // ctx.lineTo(right_wall_x,left_wall_y_end);
-                        // ctx.stroke();
-
-                        // ctx.beginPath();
-                        // ctx.strokeStyle = crankCaseColor;
-                        // ctx.fillStyle = crankCaseColor;
-                        // ctx.lineWidth = 4;
-                        // ctx.moveTo(left_wall_x,left_wall_y_start+60);
-                        // ctx.lineTo(left_wall_x,left_wall_y_end);
-                        // ctx.lineTo(right_wall_x,right_wall_y_end);
-                        // ctx.lineTo(right_wall_x,right_wall_y_start+60);
-                        // ctx.stroke();
-
-
-
-                        // ctx.beginPath();
-                        // ctx.strokeStyle = pistonColor;
-                        // ctx.fillStyle = pistonColor;
-                        // ctx.lineWidth = 10;
-                        // ctx.moveTo((right_wall_x + left_wall_x)/2,100-step);
-                        // ctx.lineTo((right_wall_x + left_wall_x)/2,400-step-70);
-                        // ctx.lineCap = 'round';
-                        // ctx.stroke();
 
                         ctx.fillStyle="grey";    // red
                         if(step2>step){
@@ -363,36 +313,6 @@
                         ctx.fillStyle = crankCaseColor;
                         ctx.lineWidth = 4;
 
-                        // cylinder walls
-
-                        // ctx.beginPath();
-                        // ctx.moveTo(left_wall_x,left_wall_y_start+60);
-                        // ctx.lineTo(left_wall_x,left_wall_y_end);
-                        // ctx.lineTo(right_wall_x,right_wall_y_end);
-                        // ctx.lineTo(right_wall_x,right_wall_y_start+60);
-                        // ctx.stroke();
-
-                        // ctx.beginPath();
-                        // ctx.moveTo(20,200);
-                        // ctx.bezierCurveTo(20,100,200,100,200,200);
-                        // ctx.moveTo(800,200);
-                        // ctx.bezierCurveTo(800,100,200,100,200,200);
-                        // ctx.stroke();
-
-                        // source & sink walls
-
-                        // ctx.beginPath();
-                        // ctx.strokeStyle = crankCaseColor;
-                        // ctx.fillStyle = crankCaseColor;
-                        // ctx.lineWidth = 4;
-                        // ctx.moveTo(left_wall_x,left_wall_y_end);
-                        // ctx.lineTo(left_wall_x,left_wall_y_end+50);
-                        // ctx.lineTo(right_wall_x,left_wall_y_end+50);
-                        // ctx.lineTo(right_wall_x,left_wall_y_end);
-                        // ctx.stroke();
-
-                        // source and sink
-
                         ctx.fillStyle="grey";    // red
                         if(step2>step){
                             if(step>-49 && step<49){
@@ -438,19 +358,6 @@
                         ctx.fillStyle = test;
                         ctx.fillRect(piston_x+2,piston_y-step+piston_height,piston_width-4,90+step);
                         ctx.stroke();
-
-
-
-                        // connecting rod
-
-                        // ctx.beginPath();
-                        // ctx.strokeStyle = pistonColor;
-                        // ctx.fillStyle = pistonColor;
-                        // ctx.lineWidth = 10;
-                        // ctx.moveTo((right_wall_x + left_wall_x)/2,piston_y-step);
-                        // ctx.lineTo((right_wall_x + left_wall_x)/2,piston_y-step-70);
-                        // ctx.lineCap = 'round';
-                        // ctx.stroke();
 
                         if(flag===false){
 
@@ -729,7 +636,7 @@
 
     <div style="position:relative; left: 15px;top:-60px;">
 
-        <button class="tooltip" style="border:1px solid darkred ; color:black;top: 5px; text-align:justify;left: 10px">Symbols
+        <button class="tooltip" style="border:1px solid darkred ; color:black;top: 5px; text-align:justify;left: 6px">Symbols
             <span class="tooltiptext" style="left: 0px;width: 480px">
 			Process 1-2 = Isentropic Compression<br>
             Process 2-3 = Constant Volume Heat Addition (or Constant Volume Combustion)<br>
@@ -745,7 +652,7 @@
                 Qout = Heat rejected at constant volume<br>
 			</span>
         </button>
-        <button class="tooltip" style="border:1px solid darkred ; color:black;top: 5px; text-align:justify;left: 90px">Formulae
+        <button class="tooltip" style="border:1px solid darkred ; color:black;top: 5px; text-align:justify;left: 85px">Formulae
             <span class="tooltiptext" style="left: -60px; width: 280px">
             Process 1-2 -> Pv<sup>γ</sup> = constant<br>
             Process 2-3 -> v = constant<br>
